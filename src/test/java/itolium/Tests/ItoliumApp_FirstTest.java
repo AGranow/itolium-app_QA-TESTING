@@ -12,6 +12,7 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -20,6 +21,7 @@ import org.testng.annotations.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.Duration;
 
 
 public class ItoliumApp_FirstTest {
@@ -35,7 +37,7 @@ public class ItoliumApp_FirstTest {
     @BeforeMethod
     public void startTest() {
         logger.info("Start test");
-            }
+    }
 
     @BeforeTest
     public void SetUp() {
@@ -72,13 +74,17 @@ public class ItoliumApp_FirstTest {
     }
 
     @Test
-    public void firsTestEdge() {
-        WebElement elementEdge = edgeDriver.findElement(By.className("App-header"));
+    public void firsTestEdge()  {
+        String text = edgeDriver.findElement(By.className("App-header")).getText();
+        Assert.assertEquals(text, "Hello from Maks");
+        Assert.assertTrue(edgeDriver.findElement(By.className("App-header")).isDisplayed());
     }
 
     @Test
     public void firsTestFirefoxDriver() {
-        WebElement elementFirefoxDriver = firefoxDriver.findElement(By.className("App-header"));
+        String text = firefoxDriver.findElement(By.className("App-header")).getText();
+        Assert.assertEquals(text, "Hello from Maks");
+        Assert.assertTrue(firefoxDriver.findElement(By.className("App-header")).isDisplayed());
     }
 
 
@@ -94,7 +100,7 @@ public class ItoliumApp_FirstTest {
         return screenshot.getAbsolutePath();
     }
 
-    @AfterTest(enabled = false)
+    @AfterTest(enabled = true)
     public void tearDown() {
         edgeDriver.quit();
         chromeDriver.quit();
