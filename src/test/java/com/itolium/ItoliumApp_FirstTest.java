@@ -1,10 +1,9 @@
-package itolium.Tests;
+package com.itolium;
 
 import com.google.common.io.Files;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -12,7 +11,6 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -21,7 +19,6 @@ import org.testng.annotations.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.Duration;
 
 
 public class ItoliumApp_FirstTest {
@@ -34,7 +31,7 @@ public class ItoliumApp_FirstTest {
 
     Logger logger = LoggerFactory.getLogger(ItoliumApp_FirstTest.class);
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = false)
     public void startTest() {
         logger.info("Start test");
     }
@@ -68,30 +65,25 @@ public class ItoliumApp_FirstTest {
 
     @Test
     public void firsTestChromeDriver() {
-        String text = chromeDriver.findElement(By.className("App-header")).getText();
-        Assert.assertEquals(text, "Hello from Maks");
-        Assert.assertTrue(chromeDriver.findElement(By.className("App-header")).isDisplayed());
+        String text = chromeDriver.findElement(By.xpath("//h1[contains(text(),'Home')]")).getText();
+        Assert.assertEquals(text, "Home");
     }
 
     @Test
     public void firsTestEdge()  {
-        String text = edgeDriver.findElement(By.className("App-header")).getText();
-        Assert.assertEquals(text, "Hello from Maks");
-        Assert.assertTrue(edgeDriver.findElement(By.className("App-header")).isDisplayed());
-    }
+        String text = edgeDriver.findElement(By.xpath("//h1[contains(text(),'Home')]")).getText();
+        Assert.assertEquals(text, "Home");
+           }
 
     @Test
     public void firsTestFirefoxDriver() {
-        String text = firefoxDriver.findElement(By.className("App-header")).getText();
-        Assert.assertEquals(text, "Hello from Maks");
-        Assert.assertTrue(firefoxDriver.findElement(By.className("App-header")).isDisplayed());
+        String text = firefoxDriver.findElement(By.xpath("//h1[contains(text(),'Home')]")).getText();
+        Assert.assertEquals(text, "Home");
     }
-
 
     public String takeScreenshot() {
         File tmp = ((TakesScreenshot) chromeDriver).getScreenshotAs(OutputType.FILE);
         File screenshot = new File("screenshot" + System.currentTimeMillis() + ".png");
-
         try {
             Files.copy(tmp, screenshot);
         } catch (IOException e) {
@@ -107,8 +99,8 @@ public class ItoliumApp_FirstTest {
         firefoxDriver.quit();
     }
 
-    @AfterMethod(alwaysRun = true)
-    public void stopMetod(ITestResult result) {
+    @AfterMethod(alwaysRun = false)
+    public void stopMethod(ITestResult result) {
         if (result.isSuccess()) {
             logger.info("Test Passt!!!");
         } else {

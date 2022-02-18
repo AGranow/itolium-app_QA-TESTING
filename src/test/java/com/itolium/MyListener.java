@@ -1,4 +1,4 @@
-package itolium.Tests;
+package com.itolium;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
