@@ -65,20 +65,18 @@ public class ItoliumApp_FirstTest {
 
     @Test
     public void firsTestChromeDriver() {
-        String text = chromeDriver.findElement(By.xpath("//h1[contains(text(),'Home')]")).getText();
-        Assert.assertEquals(text, "Home");
+        Assert.assertTrue(chromeDriver.findElement(By.className("home-title")).isDisplayed());
     }
 
     @Test
-    public void firsTestEdge()  {
-        String text = edgeDriver.findElement(By.xpath("//h1[contains(text(),'Home')]")).getText();
-        Assert.assertEquals(text, "Home");
-           }
+    public void firsTestEdge() {
+        Assert.assertTrue(edgeDriver.findElement(By.className("home-title")).isDisplayed());
+   }
 
     @Test
     public void firsTestFirefoxDriver() {
-        String text = firefoxDriver.findElement(By.xpath("//h1[contains(text(),'Home')]")).getText();
-        Assert.assertEquals(text, "Home");
+        Assert.assertTrue(firefoxDriver.findElement(By.className("home-title")).isDisplayed());
+
     }
 
     public String takeScreenshot() {

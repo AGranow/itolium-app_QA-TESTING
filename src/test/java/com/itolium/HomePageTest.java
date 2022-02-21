@@ -6,10 +6,6 @@ import org.testng.annotations.Test;
 
 public class HomePageTest extends TestBase {
 
-
-    public HomePageTest() {
-    }
-
     @Test
     public void openPageTest() {
         webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.className("home-title")));
@@ -19,6 +15,8 @@ public class HomePageTest extends TestBase {
     public void buttonKarriereTest() {
         webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[@href='/karriere']"))).click();
         webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//h1[contains(text(),'Karriere Page')]")));
+        wd.navigate().back();
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.className("home-title")));
     }
 
     @Test
